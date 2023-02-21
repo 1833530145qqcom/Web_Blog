@@ -2,7 +2,7 @@
   <div class="layout">
     <el-container>
       <el-header class="header">
-        <div class="logo">EasyBlog</div>
+        <div class="logo">MyBlog</div>
         <div class="user-info">
           <span>欢迎回来，</span>
           <el-dropdown trigger="click">
