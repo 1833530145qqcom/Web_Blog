@@ -110,21 +110,21 @@ const login = () => {
   //     formData.password = md5(formData.password)
   //   }
 
-    let params = {
-      account: formData.account,
-      password: formData.password,
-      checkCode: formData.checkCode
-    }
+  //  let params = {
+  //    account: formData.account,
+  //   password: formData.password,
+  //    checkCode: formData.checkCode
+  //  }
 
-    if( formData.account == '12345678910'){
+    //if( formData.account == '12345678910'){
       router.push({
         name: '框架页',
         path: '/',
         component: () => import('../views/Framework.vue'),
       })
-    }else{
-      throw new Error("用户名不存在")
-    }
+    //}else{
+      //throw new Error("用户名不存在")
+    //}
   //   let result = await proxy.Request({
   //     url: api.login,
   //     params: params,
