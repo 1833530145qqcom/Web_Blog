@@ -24,7 +24,7 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item prop="checkCode">
+        <!-- <el-form-item prop="checkCode">
           <div class="check-code-panel">
             <el-input placeholder="请输入验证码"
                       v-model="formData.checkCode"
@@ -36,7 +36,7 @@
                  @click="changeCheckCode">
           </div>
 
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-checkbox v-model="formData.rememberMe"
                        :true-label="1">记住我</el-checkbox>
@@ -59,14 +59,14 @@ import { useRouter } from 'vue-router'
 const { proxy } = getCurrentInstance();
 const router = useRouter();
 const api = {
-  checkCode: "api/checkCode",
+  //checkCode: "api/checkCode",
   login: "/login"
 }
 
-const checkCodeUrl = ref(api.checkCode);
-const changeCheckCode = () => {
-  checkCodeUrl.value = api.checkCode + "?" + new Date().getTime();
-}
+// const checkCodeUrl = ref(api.checkCode);
+// const changeCheckCode = () => {
+//   checkCodeUrl.value = api.checkCode + "?" + new Date().getTime();
+// }
 
 //表单相关
 const formDataRef = ref(null);
@@ -81,10 +81,10 @@ const rules = {
     required: true,
     message: "请输入密码",
   }],
-  checkCode: [{
-    required: true,
-    message: "请输入验证码",
-  }]
+  // checkCode: [{
+  //   required: true,
+  //   message: "请输入验证码",
+  // }]
 
 }
 
@@ -98,16 +98,17 @@ const init = () => {
 init();
 
 const login = () => {
-  formDataRef.value.validate(async (valid) => {
-    if (!valid) {
-      return;
-    }
-    let cookieLoginInfo = proxy.VueCookies.get("loginInfo");
-    let cookiePassword = cookieLoginInfo == null ? null : cookieLoginInfo.password;
+  
+  // formDataRef.value.validate(async (valid) => {
+  //   if (!valid) {
+  //     return;
+  //   }
+  //   let cookieLoginInfo = proxy.VueCookies.get("loginInfo");
+  //   let cookiePassword = cookieLoginInfo == null ? null : cookieLoginInfo.password;
 
-    if (formData.password !== cookiePassword) {
-      formData.password = md5(formData.password)
-    }
+  //   if (formData.password !== cookiePassword) {
+  //     formData.password = md5(formData.password)
+  //   }
 
     let params = {
       account: formData.account,
@@ -115,17 +116,26 @@ const login = () => {
       checkCode: formData.checkCode
     }
 
-    let result = await proxy.Request({
-      url: api.login,
-      params: params,
-      errorCallback: () => {
-        changeCheckCode();
-      }
-    })
-    if (!result) {
-      return;
+    if( formData.account == '12345678910'){
+      router.push({
+        name: '框架页',
+        path: '/',
+        component: () => import('../views/Framework.vue'),
+      })
+    }else{
+      throw new Error("用户名不存在")
     }
-    proxy.Message.success("登录成功");
+  //   let result = await proxy.Request({
+  //     url: api.login,
+  //     params: params,
+  //     errorCallback: () => {
+  //       changeCheckCode();
+  //     }
+  //   })
+  //   if (!result) {
+  //     return;
+  //   }
+  //   proxy.Message.success("登录成功");
 
     setTimeout(() => {
       router.push("/")
@@ -139,7 +149,7 @@ const login = () => {
     if (formData.rememberMe == 1) {
       proxy.VueCookies.set("loginInfo", loginInfo, "7d")
     }
-  });
+  //});
 }
 
 </script>
