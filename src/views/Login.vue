@@ -7,7 +7,7 @@ const user = ref('')
 const name = ref('')
 const password = ref('')
 const repeat = ref('')
-const host = 'https://db-api.amarea.cn/users'
+const host = 'https://db-api.amarea.cn'
 
 function login() {
   const myHeaders = new Headers()
