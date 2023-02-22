@@ -26,7 +26,7 @@ function login() {
         }
         if (data.password === password.value) {
           router.push({
-          name: '框架页',
+          name: 'KuangJia',
           })
         } else {
           throw new Error("密码错误")
