@@ -25,10 +25,7 @@ function login() {
           throw new Error("用户名不存在")
         }
         if (data.password === password.value) {
-          router.push({
-          name: 'KuangJia',
-          //console.log('123'),
-          })
+          
           router.push({ path: '/blog/list' })
         } else {
           throw new Error("密码错误")
