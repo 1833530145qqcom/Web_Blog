@@ -26,11 +26,10 @@ function login() {
         }
         if (data.password === password.value) {
           router.push({
-            name: "home",
-            params: {
-              id: data.id,
-            }
-          })
+        name: '框架页',
+        path: '/',
+        component: () => import('../views/Framework.vue'),
+      })
         } else {
           throw new Error("密码错误")
         }
