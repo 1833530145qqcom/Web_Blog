@@ -29,6 +29,7 @@ function login() {
           name: 'KuangJia',
           //console.log('123'),
           })
+          router.push({ path: '/blog/list' })
         } else {
           throw new Error("密码错误")
         }
