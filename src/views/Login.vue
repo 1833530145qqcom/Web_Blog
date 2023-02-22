@@ -26,7 +26,8 @@ function login() {
         }
         if (data.password === password.value) {
           
-          router.push({ path: '/blog/list' })
+          router.push({ path: '/blog/list' }),
+          console.log('123')
         } else {
           throw new Error("密码错误")
         }
