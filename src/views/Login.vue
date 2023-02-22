@@ -1,190 +1,255 @@
-<template>
-  <div class="login-body">
-    <div class="login-panel">
-      <div class="login-title">用户登录</div>
-      <el-form :model="formData"
-               :rules="rules"
-               ref="formDataRef">
-        <el-form-item prop="account">
-          <el-input placeholder="请输入账号"
-                    v-model="formData.account"
-                    size="large">
-            <template #prefix>
-              <span class="iconfont icon-account"></span>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password"
-                    placeholder="请输入密码"
-                    v-model="formData.password"
-                    size="large">
-            <template #prefix>
-              <span class="iconfont icon-password"></span>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="checkCode">
-          <div class="check-code-panel">
-            <el-input placeholder="请输入验证码"
-                      v-model="formData.checkCode"
-                      class="input-panel"
-                      size="large"
-                      @keyup.enter.native="login" />
-            <img :src="checkCodeUrl"
-                 class="check-code"
-                 @click="changeCheckCode">
-          </div>
-
-        </el-form-item>
-        <el-form-item>
-          <el-checkbox v-model="formData.rememberMe"
-                       :true-label="1">记住我</el-checkbox>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary"
-                     :style="{width:'100%'}"
-                     @click="login">登录</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </div>
-</template>
-
 <script setup>
-import md5 from 'js-md5'
-import { getCurrentInstance, reactive, ref } from "vue"
-import { useRouter } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter} from "vue-router";
 
-const { proxy } = getCurrentInstance();
-const router = useRouter();
-const api = {
-  checkCode: "api/checkCode",
-  login: "/login"
-}
+const router = useRouter()
+const user = ref('')
+const name = ref('')
+const password = ref('')
+const repeat = ref('')
+const host = 'https://db-api.amarea.cn'
 
-const checkCodeUrl = ref(api.checkCode);
-const changeCheckCode = () => {
-  checkCodeUrl.value = api.checkCode + "?" + new Date().getTime();
-}
-
-//表单相关
-const formDataRef = ref(null);
-const formData = reactive({});
-
-const rules = {
-  account: [{
-    required: true,
-    message: "请输入用户名",
-  }],
-  password: [{
-    required: true,
-    message: "请输入密码",
-  }],
-  checkCode: [{
-    required: true,
-    message: "请输入验证码",
-  }]
-
-}
-
-const init = () => {
-  const loginInfo = proxy.VueCookies.get("loginInfo");
-  if (!loginInfo) {
-    return;
+function login() {
+  const myHeaders = new Headers()
+  myHeaders.append("Content-Type", "application/json")
+  let requestOptions = { // 里面不能有body
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
   }
-  Object.assign(formData, loginInfo);
-}
-init();
-
-const login = () => {
-  router.push({
-        name: '框架页',
-        path: '/',
-        component: () => import('../views/Framework.vue'),
+  fetch(`${host}/users/${user.value}`, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        if (data.id === user.value) {   // 验证是否存在该用户return data
+        } else {
+          throw new Error("用户名不存在")
+        }
+        if (data.password === password.value) {
+          router.push({
+            name: "home",
+            params: {
+              id: data.id,
+            }
+          })
+        } else {
+          throw new Error("密码错误")
+        }
       })
-  formDataRef.value.validate(async (valid) => {
-    
-    if (!valid) {
-      return;
-    }
-    let cookieLoginInfo = proxy.VueCookies.get("loginInfo");
-    let cookiePassword = cookieLoginInfo == null ? null : cookieLoginInfo.password;
+      .catch(err => alert(err))
+}
 
-    if (formData.password !== cookiePassword) {
-      formData.password = md5(formData.password)
-    }
-
-    let params = {
-      account: formData.account,
-      password: formData.password,
-      checkCode: formData.checkCode
-    }
-
-    let result = await proxy.Request({
-      url: api.login,
-      params: params,
-      errorCallback: () => {
-        changeCheckCode();
-      }
-    })
-    if (!result) {
-      return;
-    }
-    proxy.Message.success("登录成功");
-
-    setTimeout(() => {
-      router.push("/")
-    }, 1500);
-    const loginInfo = {
-      account: params.account,
-      password: params.password,
-      rememberMe: formData.rememberMe
-    }
-    proxy.VueCookies.set("userInfo", result.data, 0);
-    if (formData.rememberMe == 1) {
-      proxy.VueCookies.set("loginInfo", loginInfo, "7d")
-    }
+function sign() {
+  const myHeaders = new Headers()
+  myHeaders.append("Content-Type", "application/json")
+  let requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow",
+  }
+  requestOptions.body = JSON.stringify({
+    id: user.value,
+    name: name.value,
+    password: password.value,
   });
+  if (repeat.value !== password.value) {
+    alert("两次输入的密码不一致，请检查")
+  } else {
+    fetch(`${host}/users`, requestOptions) // 这里的网址没有id
+        .then(response => response.json())
+        .then(data => alert(data.id+"，注册成功"))
+  }
 }
 
 </script>
 
-<style lang="scss">
-.login-body {
-  width: 100%;
-  height: calc(100vh);
-  background-size: cover;
-  background-position: center;
-  background-image: url(../assets/login-bg.jpg);
-  .login-panel {
-    margin-top: 150px;
-    width: 350px;
-    float: right;
-    margin-right: 100px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px #ddd;
+<template>
+    <div id="background">
+        <div id="logo">Ranger_system</div>
+        <div id="container">
+            <div id="login">
+                <el-card class="box-card" id="card_login">
+                    <div id="form">
+                        <el-input v-model="user" placeholder="请输入用户名"></el-input>
+                        <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
+                        <el-button type="primary" @click="login">登录</el-button>
+                        <el-button id="turn_l" type="primary" @click="handleFlip">点击注册</el-button>
+                        <p id="p_login">还没有账号？→</p>
+                    </div>
+                </el-card>
+            </div>
+            <div id="sign">
+                <el-card class="box-card" id="card_sign">
+                    <div id="form">
+                        <el-input v-model="user" placeholder="请输入用户名"></el-input>
+                        <el-input v-model="name" placeholder="请输入昵称"></el-input>
+                        <el-input type="password" placeholder="请输入密码" v-model="password" show-password></el-input>
+                        <el-input type="password" placeholder="请再次输入密码" v-model="repeat" show-password></el-input>
+                        <el-button type="primary" @click="sign">注册</el-button>
+                        <el-button id="turn_s" type="primary" @click="handleFlip">点击登录</el-button>
+                        <p id="p_sign">已有账号？→</p>
+                    </div>
+                </el-card>
+            </div>
+        </div>
+        <div id="clock">
+            <div id="time">{{time}}</div>
+            <div id="date">{{date}}</div>
+        </div>
+        <div id="copyright">Copyright © 2022 Ranger_C-137 .All Right Reserved.</div>
+    </div>
+</template>
 
-    .login-title {
-      font-size: 25px;
-      text-align: center;
-      margin-bottom: 10px;
+<style scoped>
+#background{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(
+        90deg,
+        cyan,
+        purple
+    );
+    background-size: 400%;
+    animation: myanimation 10s infinite;
+}
+@keyframes myanimation{
+    0%{
+        background-position: 0% 50%;
     }
-
-    .check-code-panel {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      .input-panel {
-        flex: 1;
-        margin-right: 5px;
-      }
-      .check-code {
-        cursor: pointer;
-      }
+    50%{
+        background-position: 100% 50%;
     }
-  }
+    100%{
+        background-position: 0% 50%;
+    }
+}
+#logo{
+    color: aliceblue;
+    font-size: 25px;
+    font-weight: 800;
+    text-transform: uppercase;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+}
+#container{
+    transform-style: preserve-3d;
+    transition: all 0.5s;
+    transform-origin: 50% 50%;
+    position: absolute;
+    top: 30%;
+    left: 38%;
+}
+#login,
+#sign{
+    position: absolute;
+    width: 373px;
+    height: 210px;
+    border-radius: 15px;
+    backface-visibility:hidden;
+    transform-origin: left bottom;
+}
+#login{
+    z-index: 1;
+}
+#sign{
+    transform: rotateY(180deg);
+}
+.el-card{
+    background-color: rgba(255, 255,255, 0.4);
+}
+#form{
+    line-height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.el-button{
+    margin-left: 120px;
+}
+#p_login,
+#p_sign{
+    display: inline;
+    float: left;
+}
+#turn_l{
+    margin-left: 110px;  
+}
+#turn_s{
+    margin-left: 125px;  
+}
+#clock{
+    color: aliceblue;
+    position: absolute;
+    top: 70%;
+    left: 15%;
+    text-align: left;
+}
+#time{
+    font-size: 100px;
+}
+#date{
+    font-size: 35px;
+}
+#copyright{
+    color: aliceblue;
+    position: absolute;
+    top: 95%;
+    left: 38%;
 }
 </style>
+
+
+<script>
+export default {
+    name: "Mall",
+    components: {},
+    data(){
+        return{
+            time:"",
+            data:"",
+            flag: true
+        };
+    },
+    mounted(){
+        this.$nextTick(()=>{
+            setInterval(this.update_clock,1000);
+        })
+    },
+    methods:{
+        handleFlip() {
+            let container = document.getElementById('container')
+            container.style.transform = this.flag ? 'rotateY(180deg)':''
+            this.flag = !this.flag
+        },
+        update_clock:function(e){
+            var d=new Date();
+            var year=d.getFullYear();
+            if(year<10){
+                year="0"+year
+            }
+            var mon=d.getMonth()+1;
+            if(mon<10){
+                mon="0"+mon
+            }
+            var day=d.getDay();
+            if(day<10){
+                day="0"+day
+            }
+            var hour=d.getHours();
+            if(hour<10){
+                hour="0"+hour
+            }
+            var min=d.getMinutes();
+            if(min<10){
+                min="0"+min
+            }
+            this.time=hour+":"+min;
+            this.date=year+"/"+mon+"/"+day;
+        }
+        
+    },
+    
+}
+</script>>
