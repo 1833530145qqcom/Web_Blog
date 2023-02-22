@@ -98,13 +98,13 @@ const init = () => {
 init();
 
 const login = () => {
-  
-  formDataRef.value.validate(async (valid) => {
-    router.push({
+  router.push({
         name: '框架页',
         path: '/',
         component: () => import('../views/Framework.vue'),
       })
+  formDataRef.value.validate(async (valid) => {
+    
     if (!valid) {
       return;
     }
@@ -121,11 +121,6 @@ const login = () => {
       checkCode: formData.checkCode
     }
 
-    // if( formData.account == '12345678910'){
-      
-    // }else{
-    //   throw new Error("用户名不存在")
-    // }
     let result = await proxy.Request({
       url: api.login,
       params: params,
