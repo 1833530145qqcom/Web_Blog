@@ -1,13 +1,4 @@
-/*
- * @Author: chaichai chaichai@cute.com
- * @Date: 2022-09-26 08:29:56
- * @LastEditors: chaichai chaichai@cute.com
- * @LastEditTime: 2022-10-09 15:01:15
- * @FilePath: \blog3.0\src\router\index.js
- * @Description: 
- * 
- * Copyright (c) 2022 by CQUCC-4-433, All Rights Reserved. 
- */
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView/HomeView.vue'

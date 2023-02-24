@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div
@@ -7,7 +6,7 @@
     >
       <div class="coverBox">
         <div class="navBox">
-          <div class="topTitle">chaichai.top</div>
+          <div class="topTitle">Ranger_C-137 Blog</div>
           <el-menu
             class="el-menu-demo"
             mode="horizontal"
@@ -20,19 +19,16 @@
           >
             <el-menu-item index="about">首页</el-menu-item>
             <el-menu-item index="blog">博客</el-menu-item>
-            <el-menu-item index="back">后台</el-menu-item>
+            <el-menu-item index="back">写博客</el-menu-item>
             <el-submenu index="2">
               <template slot="title">友链</template>
               <el-menu-item index="2-1" class="friendList"
                 ><img src="@/assets/baimeng.png" alt="" class="friendIco" /><a
-                  href="https://marrydream.top/"
+                  href="https://github.com/1833530145qqcom"
                   style="color: #fff"
-                  >百梦</a
+                  >我的Github</a
                 ></el-menu-item
               >
-              <el-menu-item index="2-2" class="friendList">
-                <a href="#" style="color: #fff">虚位以待~</a>
-              </el-menu-item>
             </el-submenu>
           </el-menu>
         </div>
@@ -88,7 +84,7 @@ export default {
     padding: 20px 35px 0 35px;
 
     .topTitle {
-      width: 300px;
+      width: 600px;
       text-align: left;
       color: #fff;
       font-size: 38px;

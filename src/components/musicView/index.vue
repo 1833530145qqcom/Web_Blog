@@ -1,13 +1,3 @@
-<!--
- * @Author: chaichai chaichai@cute.com
- * @Date: 2022-10-10 14:13:14
- * @LastEditors: chaichai chaichai@cute.com
- * @LastEditTime: 2022-10-10 15:46:10
- * @FilePath: \blog3.0\src\components\musicView\index.vue
- * @Description: 
- * 
- * Copyright (c) 2022 by CQUCC-4-433, All Rights Reserved. 
--->
 <template>
   <div class="page-promotion flex-col">
     <div class="con-play flex" @click="audioPlayOrPause()">

@@ -1,13 +1,4 @@
-<!--
- * @Author: chaichai chaichai@cute.com
- * @Date: 2022-09-26 08:29:56
- * @LastEditors: chaichai chaichai@cute.com
- * @LastEditTime: 2022-10-10 17:12:10
- * @FilePath: \blog3.0\src\App.vue
- * @Description: 
- * 
- * Copyright (c) 2022 by CQUCC-4-433, All Rights Reserved. 
--->
+
 <template>
   <div id="app">
     <!-- <HomeView v-if="home"></HomeView>

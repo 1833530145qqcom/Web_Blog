@@ -1,14 +1,3 @@
-<!--
- * @Author: chaichai chaichai@cute.com
- * @Date: 2022-09-26 08:29:56
- * @LastEditors: chaichai chaichai@cute.com
- * @LastEditTime: 2022-10-10 17:13:00
- * @FilePath: \blog3.0\src\views\FirstView\FirstView.vue
- * @Description:  [CQUCC-4-433](https://github.com/4-433) 正在找寻志同道合的小伙伴，欢迎前端、后端、UI加入我们！
- * 
- * Copyright (c) 2022 by CQUCC-4-433, All Rights Reserved. 
--->
-
 <template>
   <div class="aboutBox">
     <bannerView
@@ -33,8 +22,8 @@
             class="asidePic"
           ></el-avatar>
         </div>
-        <div class="asideTile">柴柴</div>
-        <div class="asideTile1">老爷保佑！前途无量！</div>
+        <div class="asideTile">章梁</div>
+        <div class="asideTile1">0204346</div>
         <el-divider>🌴</el-divider>
         <!-- 侧边栏底部图片 -->
         <img src="@/assets/huli.gif" alt="" class="bottomImg" />

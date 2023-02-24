@@ -1,13 +1,3 @@
-<!--
- * @Author: chaichai chaichai@cute.com
- * @Date: 2022-09-28 16:41:52
- * @LastEditors: chaichai chaichai@cute.com
- * @LastEditTime: 2022-10-11 11:00:40
- * @FilePath: \blog3.0\src\views\HomeView\components\typewriter.vue
- * @Description: 
- * 
- * Copyright (c) 2022 by CQUCC-4-433, All Rights Reserved. 
--->
 <template>
 	<div>
 		<span class="font" v-for="(v,k) in words" :key="k">{{v}}</span>

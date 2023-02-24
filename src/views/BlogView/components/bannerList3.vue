@@ -15,9 +15,9 @@
         </slider>
       </div>
     </div>
-    <div class="contentBox">
+    <!-- <div class="contentBox">
       <div class="contentTile"></div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -31,8 +31,8 @@ export default {
       someList: [
         {
           html: "动画效果抖动解决",
-          athuer: "chaichai",
-          creatTime: "2021-10-19",
+          athuer: "Ranger_C-137",
+          creatTime: "2023-2-23",
           style: {
             background:
               'url("http://chaichaiimage.oss-cn-hangzhou.aliyuncs.com/blog3.0/bg15.jpg")',
@@ -41,9 +41,8 @@ export default {
         },
         {
           html: "Hover盒子抖动",
-          athuer: "chaichai",
-          creatTime: "2021-10-19",
-
+          athuer: "Ranger_C-137",
+          creatTime: "2023-2-23",
           style: {
             background:
               'url("http://chaichaiimage.oss-cn-hangzhou.aliyuncs.com/blog3.0/bg16.jpg")',
@@ -52,8 +51,8 @@ export default {
         },
         {
           html: "自定义右键菜单无法关上",
-          athuer: "chaichai",
-          creatTime: "2021-10-19",
+          athuer: "Ranger_C-137",
+          creatTime: "2023-2-23",
 
           style: {
             background:

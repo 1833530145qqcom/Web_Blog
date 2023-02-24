@@ -32,8 +32,8 @@ export default {
       someList: [
         {
           html: "React入门到入土",
-          athuer: "chaichai",
-          creatTime: "2021-10-19",
+          athuer: "Ranger_C-137",
+          creatTime: "2023-2-23",
           style: {
             background:
               'url("http://chaichaiimage.oss-cn-hangzhou.aliyuncs.com/blog3.0/bg5.jpg")',
@@ -42,8 +42,8 @@ export default {
         },
         {
           html: "React框架详解",
-          athuer: "chaichai",
-          creatTime: "2021-10-19",
+          athuer: "Ranger_C-137",
+          creatTime: "2023-2-23",
 
           style: {
             background:
@@ -53,8 +53,8 @@ export default {
         },
         {
           html: "React使用echarts",
-          athuer: "chaichai",
-          creatTime: "2021-10-19",
+          athuer: "Ranger_C-137",
+          creatTime: "2023-2-23",
 
           style: {
             background:
