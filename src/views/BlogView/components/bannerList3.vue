@@ -15,9 +15,9 @@
         </slider>
       </div>
     </div>
-    <!-- <div class="contentBox">
+    <div class="contentBox">
       <div class="contentTile"></div>
-    </div> -->
+    </div>
   </div>
 </template>
 

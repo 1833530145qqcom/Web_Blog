@@ -11,7 +11,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      title: '柴柴の博客 | 技术宅-改变未来'
+      title: 'Web_Blog'
     }
   },
   {
@@ -19,7 +19,7 @@ const routes = [
     name: 'about',
     component: () => import('../views/FirstView/FirstView.vue'),
     meta: {
-      title: '首页 | 技术宅-改变未来'
+      title: '首页'
     }
   },
   {
@@ -27,7 +27,7 @@ const routes = [
     name: 'blog',
     component: () => import('../views/BlogView/BlogView.vue'),
     meta: {
-      title: '博客 | 技术宅-改变未来'
+      title: '博客'
     }
   },
   {
@@ -35,7 +35,7 @@ const routes = [
     name: 'back',
     component: () => import('../views/BackView/BackView.vue'),
     meta: {
-      title: '后台 | 技术宅-改变未来'
+      title: '写博客'
     }
   },
   {
@@ -43,7 +43,7 @@ const routes = [
     name: '404',
     component: () => import('../views/404View.vue'),
     meta: {
-      title: '404 | 技术宅-改变未来'
+      title: '404'
     }
   },
 
