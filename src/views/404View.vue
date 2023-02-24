@@ -1,13 +1,4 @@
-<!--
- * @Author: chaichai chaichai@cute.com
- * @Date: 2022-09-27 10:56:50
- * @LastEditors: chaichai chaichai@cute.com
- * @LastEditTime: 2022-09-27 16:25:25
- * @FilePath: \blog3.0\src\views\404View.vue
- * @Description: 
- * 
- * Copyright (c) 2022 by CQUCC-4-433, All Rights Reserved. 
--->
+
 <template>
 <div align="center" style='font-family:"微软雅黑"'>
     <img src="http://chaichaiimage.oss-cn-hangzhou.aliyuncs.com/blog3.0/404.png" border="0" height="" style="margin:10vh 0 0 0"/>
