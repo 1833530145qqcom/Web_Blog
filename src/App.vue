@@ -1,11 +1,27 @@
-<script setup lang="ts">
-import zhCn from "element-plus/dist/locale/zh-cn.mjs";
-</script>
-
 <template>
-  <el-config-provider :locale="zhCn">
-    <router-view></router-view>
-  </el-config-provider>
+  <Home v-if="!isAdmins" />
+  <AdminIndex v-else-if="isAdmins" />
 </template>
 
-<style scoped></style>
+<script>
+import Home from './views/home'
+import AdminIndex from './views/adminIndex'
+export default {
+  components: { Home, AdminIndex },
+  data() {
+    return {
+      routPath: window.location.href,
+      isAdmins: false
+    }
+  },
+  created() {
+    this.isAdmins = this.isAdmin()
+  },
+  methods: {
+    isAdmin() {
+      console.log(this.routPath)
+      return this.routPath.indexOf('/admin') !== -1
+    }
+  }
+}
+</script>
