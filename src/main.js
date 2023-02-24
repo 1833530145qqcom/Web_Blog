@@ -1,57 +1,34 @@
+/*
+ * @Author: chaichai chaichai@cute.com
+ * @Date: 2022-09-26 08:29:56
+ * @LastEditors: chaichai chaichai@cute.com
+ * @LastEditTime: 2022-10-10 15:36:56
+ * @FilePath: \blog3.0\src\main.js
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by CQUCC-4-433, All Rights Reserved. 
+ */
 import Vue from 'vue'
-import Cookies from 'js-cookie'
-import 'normalize.css/normalize.css' // a modern alternative to CSS resets
-import Element from 'element-ui'
-import './styles/element-variables.scss'
-import enLang from 'element-ui/lib/locale/lang/en'// 如果使用中文语言包请默认支持，无需额外引入，请删除该依赖
-import '@/styles/index.scss' // global css
-import App from './App'
-import store from './store'
+import App from './App.vue'
 import router from './router'
 
-import './icons' // icon
-import * as filters from './filters' // global filters
-import fHeader from './components/f-header'
-import fFooter from './components/f-footer'
-import i18n from './i18n/i18n'
-import './utils/http'
-import day from 'dayjs'
+import 'amfe-flexible'
+import ElementUI from 'element-ui';
+import { ElementTiptapPlugin } from 'element-tiptap';
+import 'element-ui/lib/theme-chalk/index.css';
+import 'element-tiptap/lib/index.css';
+import animated from 'animate.css'
 
-Vue.filter('dateformat', function(indate, outdate) {
-  return day(indate).format(outdate)
-})
+// Vue.use(animated)
+Vue.use(ElementUI);
 
-/**
- * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
- *
- * Currently MockJs will be used in the production environment,
- * please remove it before going online ! ! !
- */
-if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('../mock')
-  mockXHR()
-}
-
-Vue.use(Element, {
-  size: Cookies.get('size') || 'medium', // set element-ui default size
-  locale: enLang // 如果使用中文，无需设置，请删除
-})
-Vue.component('f-header', fHeader)
-Vue.component('f-footer', fFooter)
-
-// register global utility filters
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
-})
+Vue.use(ElementTiptapPlugin, {
+  /* 插件配置项 */
+  lang: 'zh',
+});
 
 Vue.config.productionTip = false
-
 new Vue({
-  el: '#app',
   router,
-  store,
-  i18n,
-  render: h => h(App)
-})
+  render: h => h(App),
+}).$mount('#app')
