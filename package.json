@@ -1,8 +1,8 @@
 {
   "name": "blog3.0",
   "version": "0.2.0",
-  "description": "二次元个人博客模板",
-  "author": "柴柴",
+  "description": "Web-Blog",
+  "author": "Ranger_C-137",
   "private": false,
   "scripts": {
     "chaichai": "vue-cli-service serve",
